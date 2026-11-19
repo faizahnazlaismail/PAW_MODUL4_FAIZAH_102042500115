@@ -16,7 +16,7 @@
         <div class="card shadow-sm">
             <div class="card-body p-4">
                 {{-- TODO 8: Tambahkan atribut enctype="multipart/form-data" pada form di bawah ini --}}
-                <form action="{{ route('buku.update', $buku->id) }}" method="POST">
+                <form action="{{ route('buku.update', $buku->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
@@ -66,16 +66,56 @@
 
                     {{-- TODO 8: Tampilkan gambar sampul saat ini ($buku->cover) dan sediakan input file untuk mengganti sampul --}}
 
-                    <div class="d-flex justify-content-end gap-2">
-                        <a href="{{ route('buku.index') }}" class="btn btn-light border px-4">Batal</a>
-                        <button type="submit" class="btn btn-primary px-4">
-                            <i class="bi bi-save me-1"></i> Perbarui Buku
-                        </button>
+                    
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Cover Buku Saat Ini</label>
+
+                            @if ($buku->cover)
+                                <div class="mb-3">
+                                    <img src="{{ asset('storage/' . $buku->cover) }}"
+                                        alt="Cover Buku"
+                                        class="img-thumbnail"
+                                        style="max-height: 200px;">
+                                </div>
+                            @else
+                                <p class="text-muted small">Belum ada cover buku.</p>
+                            @endif
+
+                            <label for="cover" class="form-label">Ganti Cover Buku</label>
+                            <input type="file"
+                                name="cover"
+                                id="cover"
+                                class="form-control"
+                                accept="image/jpeg,image/png"
+                                onchange="previewImage(event)">
+
+                            <img id="imagePreview"
+                                src="#"
+                                alt="Preview Cover Baru"
+                                class="img-fluid rounded mt-3 d-none"
+                                style="max-height: 200px;">
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+<script>
+    function previewImage(event) {
+        const preview = document.getElementById('imagePreview');
+
+        if (event.target.files && event.target.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.classList.remove('d-none');
+            };
+
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    }
+</script>
 @endsection
 

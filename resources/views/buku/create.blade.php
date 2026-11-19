@@ -16,6 +16,7 @@
         <div class="card shadow-sm">
             <div class="card-body p-4">
                 {{-- TODO 7: Tambahkan atribut enctype="multipart/form-data" pada form di bawah ini --}}
+                <form action="..." method="POST" enctype="multipart/form-data">
                 <form action="{{ route('buku.store') }}" method="POST">
                     @csrf
 
@@ -65,11 +66,28 @@
 
                     {{-- TODO 7: Tambahkan field input file untuk upload sampul buku dan wadah pratinjau (preview) gambar --}}
 
-                    <div class="d-flex justify-content-end gap-2">
-                        <a href="{{ route('buku.index') }}" class="btn btn-light border px-4">Batal</a>
-                        <button type="submit" class="btn btn-primary px-4">
-                            <i class="bi bi-save me-1"></i> Simpan Buku
-                        </button>
+                  
+                        <div class="mb-3">
+                            <label for="cover" class="form-label">Cover Buku</label>
+                            <input
+                                type="file"
+                                name="cover"
+                                id="cover"
+                                class="form-control"
+                                accept="image/jpeg,image/png"
+                                onchange="previewImage(event)"
+                            >
+
+                            <div class="mt-3">
+                                <img
+                                    id="imagePreview"
+                                    src="#"
+                                    alt="Preview Cover"
+                                    class="img-fluid rounded d-none"
+                                    style="max-height: 200px;"
+                                >
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>

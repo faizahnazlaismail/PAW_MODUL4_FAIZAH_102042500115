@@ -81,7 +81,7 @@
     </nav>
 
     <div class="container py-5">
-
+er
         {{-- Flash Messages --}}
         @if(session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -121,11 +121,11 @@
                             {{-- Filter Penerbit --}}
                             <div class="col-md-3">
                                 <select name="penerbit" class="form-select" onchange="this.form.submit()">
-                                    <option value="">Semua Penerbit</option>
+                                    <option value="">Semua Penerbit</option>    
                                     @foreach($listPenerbit as $p)
-                                        <option value="{{ $p }}" {{ request('penerbit') === $p ? 'selected' : '' }}>
-                                            {{ $p }}
-                                        </option>
+                                   <option value="{{ $p }}" {{ request('penerbit') === $p ? 'selected' : '' }}>
+                                        {{ $p }}
+                                    </option>
                                     @endforeach
                                 </select>
                             </div>
